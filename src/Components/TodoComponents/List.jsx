@@ -1,6 +1,6 @@
- const List = ({id, text, deleteHandler, error}) => {
+ const List = (props) => {
     
-   
+   const {id, text, deleteHandler} = props
     return (
         
             <li className="list">

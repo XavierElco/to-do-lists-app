@@ -10,7 +10,8 @@ const Lists = () => {
     const [error, setError] = useState("");
 
     const inputTextHandler = (e) => {
-        setValue(e.target.value);
+        const data = e.target.value
+        setValue(data);
     }
 
     const deleteHandler = (id) => {
