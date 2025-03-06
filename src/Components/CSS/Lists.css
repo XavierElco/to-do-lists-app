@@ -74,3 +74,9 @@ textarea   {
     
 }
 
+.error {
+    background-color: rgb(255, 228, 228);
+    color: red;
+    border-radius: 25px;
+    padding: 20px;
+}

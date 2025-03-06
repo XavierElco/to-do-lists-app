@@ -1,16 +1,19 @@
-const ModifyList = ({inputHandler, addHandler, inputText}) => {
+const ModifyList = ({value, addHandler, inputTextHandler}) => {
+
+    
     return (
         <div className="modify_container">
             <textarea 
                 type="text"
                 cols="30"
                 rows="1"
-                value={inputText}
-                onChange={inputHandler}
+                minLength={2}
+                value={value}
+                onChange={inputTextHandler}
                 placeholder="Type Here!"
             >
             </textarea>
-            <button type="button" className="add_button" onClick={addHandler}>Add</button>
+            <button type="button" className="add_button" onClick={addHandler} >Add</button>
         </div>
     )
 }
