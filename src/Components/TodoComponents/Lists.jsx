@@ -4,30 +4,23 @@ import { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid'
 
 const Lists = () => {
-    const [loading, setLoading] = useState(true);
-    const [value, setValue] = useState("")
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(true)
+    const [text, setText] = useState("")
     const [lists, setLists] = useState([])
-    const [error, setError] = useState("");
 
-    const inputTextHandler = (e) => {
-        const data = e.target.value
-        setValue(data);
-    }
+    const inputHandler = (e) => {
+        setText(e.target.value)
+    };
 
-    const deleteHandler = (id) => {
-        if (lists.length < 15) {
-            setError("")
-        }
-        const updateLists = lists.filter((listItem) => (listItem.id !== id))
-        setLists(updateLists);
-    }
     const addHandler = () => {
+        
         if (lists.length < 15) {
             setLists((prevState) => [
                 ...prevState,
                 {
                     id: uuid(),
-                    text: value
+                    text: text
                 }
             ]
         
@@ -36,36 +29,43 @@ const Lists = () => {
         } else {
             setError ("待办事项数量不能超过15！")
         }
-        setValue("")
+        setText("")
     }
 
 
-    useEffect (()=> {
-        const data = JSON.parse(localStorage.getItem('Lists'));
+    const deleteHandler = (id) => {
+        if (lists.length <= 15) {
+            setError("")
+        }
+        const newLists = lists.filter((item) => item.id !== id);
+        setLists(newLists)
+    }
+   
+    useEffect (() => {
+        const data = JSON.parse(localStorage.getItem('Lists'))
         if (Array.isArray(data) && data.length > 0) {
-            setLists(data)
+            setLists(data);
         }
         setLoading(false);
     },[])
 
     useEffect(() => {
-        if (!loading) {
-            localStorage.setItem('Lists', JSON.stringify(lists));
+        if (!false) {
+            localStorage.setItem("Lists", JSON.stringify(lists))
         }
     },[loading, lists])
-    
+
     return (
         <div className="lists_container">
             {/* 使用一个 ul 容器包裹所有的列表项 */}
             <ul className="list_container">
-                {lists.map((listItem) => (
-    
+                {lists.map((item) => (
                     <List
-                        key={listItem.id}
-                        id={listItem.id}
-                        text={listItem.text}
+                        
+                        key={item.id}
+                        id={item.id}
+                        text={item.text}
                         deleteHandler={deleteHandler}
-                        error={error}
                     />
                 ))}
             </ul>
@@ -73,10 +73,9 @@ const Lists = () => {
             {error && <p className="error">{error}</p>}
             {/* ModifyList 组件：提供输入框和添加按钮 */}
             <ModifyList
-                value={value}
-                addHandler={addHandler}
-                inputTextHandler={inputTextHandler}
-                deleteHandler={deleteHandler}
+               text={text}
+               inputHandler={inputHandler}
+               addHandler={addHandler}
             />
             
         </div>

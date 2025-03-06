@@ -1,14 +1,14 @@
 const ModifyList = (props) => {
 
-    const {value, addHandler, inputTextHandler} = props
+    const {text, inputHandler, addHandler} = props
     return (
         <div className="modify_container">
             <textarea 
                 type="text"
                 cols="30"
                 rows="1"
-                value={value}
-                onChange={inputTextHandler}
+                value={text}
+                onChange={inputHandler}
                 placeholder="Type Here!"
             >
             </textarea>
